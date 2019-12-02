@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         WME Quick HN
 // @description  Quick House Numbers
-// @version      0.13
-// @author       Vinkoy ("advanced" functions added by Mistraz)
+// @version      0.13.1
+// @author       Vinkoy
 // @include      /^https:\/\/(www|beta)\.waze\.com\/(?!user\/)(.{2,6}\/)?editor.*$/
 // @namespace    https://greasyfork.org/en/scripts/21378-wme-quick-hn
 // @grant        none
@@ -208,6 +208,8 @@ function addTab()
         document.getElementById('_housenumber').value = counter + 1;
         document.getElementById('_housenumber').onchange = function(){
             counter = document.getElementById('_housenumber').value - 1;
+            letterIndex = 0;
+            updateLetterField(letterIndex);
         };
     }
 }
@@ -267,16 +269,23 @@ function sethn(options = {}) {
         hn.val(generateNumber(currentNumber, letter, options)).change();
         $("div#WazeMap").focus();
         letterIndex++;
-        document.getElementById('_customalpha').value = letters[letterIndex];
+        updadeLetterField(letterIndex);
     }
     else if (hn[0].placeholder == I18n.translations[I18n.locale].edit.segment.house_numbers.no_number && hn.val() === "")
     {
         counter = +counter + +interval;
-        if (document.getElementById('_housenumber') !== null )
+        if (document.getElementById('_housenumber') !== null ) {
             document.getElementById('_housenumber').value = counter + 1;
+            letterIndex = 0;
+            updateLetterField(letterIndex);
+        }
         hn.val(generateNumber(counter)).change();
         $("div#WazeMap").focus();
     }
+}
+
+function updateLetterField(index) {
+    document.getElementById('_customalpha').value = letters[index];
 }
 
 function generateNumber(number, letter = "", options = {}) {
