@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WME Quick HN
 // @description  Quick House Numbers
-// @version      0.13.1
+// @version      0.13.2
 // @author       Vinkoy
 // @include      /^https:\/\/(www|beta)\.waze\.com\/(?!user\/)(.{2,6}\/)?editor.*$/
 // @namespace    https://greasyfork.org/en/scripts/21378-wme-quick-hn
@@ -269,7 +269,7 @@ function sethn(options = {}) {
         hn.val(generateNumber(currentNumber, letter, options)).change();
         $("div#WazeMap").focus();
         letterIndex++;
-        updadeLetterField(letterIndex);
+        updateLetterField(letterIndex);
     }
     else if (hn[0].placeholder == I18n.translations[I18n.locale].edit.segment.house_numbers.no_number && hn.val() === "")
     {
